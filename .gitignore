@@ -1,4 +1,5 @@
 env/
 .vscode/
+.env
 .replit
 index.html

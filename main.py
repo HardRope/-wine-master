@@ -1,8 +1,10 @@
 import collections
 import datetime
+import os
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas as pd
 
@@ -16,8 +18,8 @@ def format_year_answer(year):
     return 'лет'
 
 
-def get_categorized_vines():
-    wines = pd.read_excel('wines_catalogue.xlsx', keep_default_na=False).to_dict(orient='records')
+def get_categorized_vines(wines_catalogue):
+    wines = pd.read_excel(wines_catalogue, keep_default_na=False).to_dict(orient='records')
 
     wines_by_categories = collections.defaultdict(list)
     for wine in wines:
@@ -27,6 +29,9 @@ def get_categorized_vines():
     return wines_by_categories
 
 if __name__ == '__main__':
+    load_dotenv()
+    wines_catalogue = os.getenv('WINES')
+
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -34,7 +39,7 @@ if __name__ == '__main__':
 
     template = env.get_template('template.html')
 
-    wines_by_categories = get_categorized_vines()
+    wines_by_categories = get_categorized_vines(wines_catalogue)
     winery_years_old = datetime.date.today().year - 1920
 
     rendered_page = template.render(

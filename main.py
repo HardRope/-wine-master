@@ -17,7 +17,7 @@ def format_year_answer(year):
 
 
 def get_categorized_vines():
-    wines = pd.read_excel('wine3.xlsx', keep_default_na=False).to_dict(orient='records')
+    wines = pd.read_excel('wines_catalogue.xlsx', keep_default_na=False).to_dict(orient='records')
 
     wines_by_categories = collections.defaultdict(list)
     for wine in wines:

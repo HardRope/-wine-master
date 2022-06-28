@@ -131,16 +131,12 @@
               {% endif %}
               <div>
                 <h3 class="heading mt-3 mb-3 text-dark">{{wine.Название}}</h3>
-                  {% if wine.Сорт %}
-                    <p>
+                  <p>
+                    {% if wine.Сорт %}
                       Сорт винограда - {{wine.Сорт}}<br/>
+                    {% endif %}
                       <span class="price">{{wine.Цена}} р.</span>
-                    </p>
-                  {% else %}
-                    <p>
-                      <span class="price">{{wine.Цена}} р.</span>
-                    </p>
-                  {% endif %}
+                  </p>
               </div>
             </div>
           </div>

@@ -24,8 +24,8 @@ def get_categorized_vines(wines_catalogue):
     wines_by_categories = collections.defaultdict(list)
     for wine in wines:
         wines_by_categories[wine['Категория']].append(wine)
-    categories = sorted(wines_by_categories.items(), key=lambda x: x[0])
-    wines_by_categories = dict(categories)
+    wine_categories = sorted(wines_by_categories.items(), key=lambda x: x[0])
+    wines_by_categories = dict(wine_categories)
     return wines_by_categories
 
 if __name__ == '__main__':
@@ -40,7 +40,9 @@ if __name__ == '__main__':
     template = env.get_template('template.html')
 
     wines_by_categories = get_categorized_vines(wines_catalogue)
-    winery_years_old = datetime.date.today().year - 1920
+
+    winery_foundation_date = 1920
+    winery_years_old = datetime.date.today().year - winery_foundation_date
 
     rendered_page = template.render(
         winery_years=f'Уже {winery_years_old} {format_year_answer(winery_years_old)} с вами!',

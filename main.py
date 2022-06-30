@@ -18,8 +18,8 @@ def format_year_answer(year):
     return 'лет'
 
 
-def get_categorized_vines(wines_catalogue):
-    wines = pd.read_excel(wines_catalogue, keep_default_na=False).to_dict(orient='records')
+def get_categorized_wines(catalogue_path):
+    wines = pd.read_excel(catalogue_path, keep_default_na=False).to_dict(orient='records')
 
     wines_by_categories = collections.defaultdict(list)
     for wine in wines:
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     template = env.get_template('template.html')
 
-    wines_by_categories = get_categorized_vines(wines_catalogue)
+    wines_by_categories = get_categorized_wines(wines_catalogue)
 
     winery_foundation_date = 1920
     winery_years_old = datetime.date.today().year - winery_foundation_date
